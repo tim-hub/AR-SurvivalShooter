@@ -3,6 +3,7 @@
 public class PlayerMovement : MonoBehaviour
 {
 	public float speed=6f;
+
 	Vector3 movement;
 	Animator anim;
 	Rigidbody playerRigidBody;
@@ -11,6 +12,7 @@ public class PlayerMovement : MonoBehaviour
 	float camRayLenght=100f;
 
 	void Awake(){
+
 	
 		floorMask=LayerMask.GetMask("Floor");
 		anim=GetComponent<Animator>();
@@ -22,14 +24,18 @@ public class PlayerMovement : MonoBehaviour
 		float h=Input.GetAxisRaw("Horizontal");
 		float v=Input.GetAxisRaw("Vertical");
 
+
+
 		Animating(h,v);
-		Move(h,v);
+		//Move(h,v);
 		Turning();
 
 	}
 
 
-	void Move(float h,float v){
+	public void Move(float h,float v){
+		Debug.Log(h);
+
 		movement.Set (h,0f,v);
 
 		movement=movement.normalized*speed*Time.deltaTime; //delta time is the time between update
@@ -38,7 +44,7 @@ public class PlayerMovement : MonoBehaviour
 		playerRigidBody.MovePosition(transform.position+movement);
 	}
 
-	void Turning(){
+	public void Turning(){
 		Ray camRay=Camera.main.ScreenPointToRay(Input.mousePosition);
 
 		RaycastHit floorHit;
@@ -58,7 +64,7 @@ public class PlayerMovement : MonoBehaviour
 	}
 
 
-	void Animating(float h, float v){
+	public void Animating(float h, float v){
 			bool walking=h!=0f ||v!=0f;
 			anim.SetBool("isWalking",walking);
 	}

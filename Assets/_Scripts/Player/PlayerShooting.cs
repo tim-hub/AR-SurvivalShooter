@@ -2,9 +2,13 @@
 
 public class PlayerShooting : MonoBehaviour
 {
-    public int damagePerShot = 20;
+	public static PlayerShooting instance=null;
+
+	public int damagePerShot = 20;
     public float timeBetweenBullets = 0.15f;
     public float range = 100f;
+
+	public bool shooting=false;
 
 
     float timer;
@@ -20,6 +24,12 @@ public class PlayerShooting : MonoBehaviour
 
     void Awake ()
     {
+		if(instance==null){
+			instance=this;
+		}else if(instance!=this){
+			Destroy(gameObject);
+		}
+
         shootableMask = LayerMask.GetMask ("Shootable");
         gunParticles = GetComponent<ParticleSystem> ();
         gunLine = GetComponent <LineRenderer> ();
@@ -32,16 +42,34 @@ public class PlayerShooting : MonoBehaviour
     {
         timer += Time.deltaTime;
 
-		if(Input.GetButton ("Fire1") && timer >= timeBetweenBullets && Time.timeScale != 0)
-        {
-            Shoot ();
-        }
+#if UNITY_EDITOR
+//		if(Input.GetButton ("Fire1") && timer >= timeBetweenBullets && Time.timeScale != 0)
+//        {
+//            Shoot ();
+//        }
+
+#endif
+		if(shooting && timer >= timeBetweenBullets && Time.timeScale != 0){
+			Shoot();
+		}
+
+
 
         if(timer >= timeBetweenBullets * effectsDisplayTime)
         {
             DisableEffects ();
         }
+
+
     }
+	public void StartShooting(){
+
+		shooting=true;
+	}
+	public void EndShooting(){
+
+		shooting=false;
+	}
 
 
     public void DisableEffects ()
@@ -51,7 +79,7 @@ public class PlayerShooting : MonoBehaviour
     }
 
 
-    void Shoot ()
+    public void Shoot ()
     {
         timer = 0f;
 
