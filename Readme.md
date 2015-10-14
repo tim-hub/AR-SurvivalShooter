@@ -1,7 +1,9 @@
 # About
+This project is a combination of [Vuforia](https://developer.vuforia.com/) and the example project [Survival Shooter](https://www.assetstore.unity3d.com/en/#!/content/40756).
 
 
-
+# Issue
+[#1](https://github.com/tim-hub/AR-SurvivalShooter/issues/1)
 
 
 
