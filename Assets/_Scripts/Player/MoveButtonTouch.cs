@@ -1,4 +1,4 @@
-﻿﻿using UnityEngine;
+﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.EventSystems;
 
@@ -35,7 +35,9 @@ IBeginDragHandler,IDragHandler,IEndDragHandler,IDropHandler
 		
 		anim=player.GetComponent<Animator>();
 		centerPos=GetComponent<RectTransform>().position;
-		
+
+		Debug.Log("RectTransform"+centerPos);
+		Debug.Log("Transform"+transform.position);
 		
 	}
 	

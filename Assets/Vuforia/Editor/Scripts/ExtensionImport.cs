@@ -1,7 +1,12 @@
 /*==============================================================================
+Copyright (c) 2015 PTC Inc. All Rights Reserved.
+ 
 Copyright (c) 2015 Qualcomm Connected Experiences, Inc.
 All Rights Reserved.
 Confidential and Proprietary - Qualcomm Connected Experiences, Inc.
+
+Vuforia is a trademark of PTC Inc., registered in the United States and other 
+countries.  
 ==============================================================================*/
 
 using UnityEngine;
@@ -27,7 +32,7 @@ namespace Vuforia.EditorClasses
 
             BuildTargetGroup androidBuildTarget = BuildTargetGroup.Android;
 
-#if (UNITY_5_2 || UNITY_5_1 || UNITY_5_0)
+#if (UNITY_5_3 || UNITY_5_2 || UNITY_5_1 || UNITY_5_0)
             BuildTargetGroup iOSBuildTarget = BuildTargetGroup.iOS;
 #else
             BuildTargetGroup iOSBuildTarget = BuildTargetGroup.iPhone;
@@ -43,7 +48,7 @@ namespace Vuforia.EditorClasses
                     PlayerSettings.Android.targetDevice = AndroidTargetDevice.ARMv7;
                 }
 
-#if (UNITY_5_2 || UNITY_5_1 || UNITY_5_0)
+#if (UNITY_5_3 || UNITY_5_2 || UNITY_5_1 || UNITY_5_0)
                 if (PlayerSettings.Android.androidTVCompatibility)
                 {
                     // Disable Android TV compatibility, as this is not compatible with
@@ -53,7 +58,7 @@ namespace Vuforia.EditorClasses
                 }
 #endif
 
-#if UNITY_5_2 || UNITY_5_1
+#if (UNITY_5_3 || UNITY_5_2 || UNITY_5_1)
                 Debug.Log("Setting Android Graphics API to OpenGL ES 2.0.");
                 PlayerSettings.SetGraphicsAPIs(
                     BuildTarget.Android,
@@ -84,7 +89,7 @@ namespace Vuforia.EditorClasses
                                          "player settings, Vuforia does not support the Metal graphics API yet.");
                     }
                 }
-#elif (UNITY_5_1 || UNITY_5_2)
+#elif (UNITY_5_3 || UNITY_5_2 || UNITY_5_1)
                 Debug.Log("Setting iOS Graphics API to OpenGL ES 2.0.");
                 PlayerSettings.SetGraphicsAPIs(
                     BuildTarget.iOS,
@@ -92,13 +97,30 @@ namespace Vuforia.EditorClasses
 #endif
 
 #if INCLUDE_IL2CPP
+    #if UNITY_4_6
                 int scriptingBackend = PlayerSettings.GetPropertyInt("ScriptingBackend", iOSBuildTarget);
                 if (scriptingBackend != (int) ScriptingImplementation.IL2CPP)
                 {
                     Debug.Log("Setting iOS scripting backend to IL2CPP to enable 64bit support.");
                     PlayerSettings.SetPropertyInt("ScriptingBackend", (int)ScriptingImplementation.IL2CPP, iOSBuildTarget);
+                }    
+    #else // UNITY_5
+                int scriptingBackend = 0;
+                if (PlayerSettings.GetPropertyOptionalInt("ScriptingBackend", ref scriptingBackend, iOSBuildTarget))
+                {
+                    if (scriptingBackend != (int)ScriptingImplementation.IL2CPP)
+                    {
+                        Debug.Log("Setting iOS scripting backend to IL2CPP to enable 64bit support.");
+                        PlayerSettings.SetPropertyInt("ScriptingBackend", (int)ScriptingImplementation.IL2CPP, iOSBuildTarget);
+                    }
                 }
-#endif
+                else
+                {
+                    Debug.LogWarning("ScriptinBackend property not available for iOS; perhaps the iOS Build Support component was not installed");
+                }
+    #endif
+#endif //INCLUDE_IL2CPP
+
                 // Here we set the scripting define symbols for IOS
                 // so we can remember that the settings were set once.
                 PlayerSettings.SetScriptingDefineSymbolsForGroup(iOSBuildTarget, 

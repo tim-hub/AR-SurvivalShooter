@@ -7,7 +7,7 @@ To view the SDK license agreement, go to https://developer.vuforia.com/legal/vuf
 To view the release notes, go to https://developer.vuforia.com/library/release-notes
 
 /*============================================================================
-            Copyright (c) 2010-2015 Qualcomm Connected Experiences, Inc.
-            All Rights Reserved.
-            Confidential and Proprietary - Qualcomm Connected Experiences, Inc.
+Copyright (c) 2015 PTC Inc.
+All Rights Reserved.
+Confidential and Proprietary - PTC Inc.
   ============================================================================*/

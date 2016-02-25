@@ -257,6 +257,7 @@ MonoBehaviour:
   mSecondaryCamera: {fileID: 0}
   mUsingHeadset: 0
   mHeadsetID: 
+  mEyewearUserCalibrationProfileId: -1
   mSynchronizePoseUpdates: 0
 --- !u!1002 &11400007
 EditorExtensionImpl:
@@ -323,8 +324,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d4add68fcad15844891a06f869084d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  matteShader: {fileID: 4800000, guid: 1ce7eb78425fb1540838bc9d5d95857a, type: 3}
-  disableMattes: 0
+  matteShader: {fileID: 4800000, guid: f84e93cca971cda47a225f4c6a4156c9, type: 3}
+  clippingMode: 0
 --- !u!114 &11400018
 MonoBehaviour:
   m_ObjectHideFlags: 1

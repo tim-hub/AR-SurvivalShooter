@@ -6,6 +6,7 @@
 	android:theme="@android:style/Theme.NoTitleBar"
     android:versionCode="1"
     android:versionName="1.0">
+    <uses-sdk android:minSdkVersion="14" android:targetSdkVersion="22" />
     <uses-feature android:name="android.hardware.camera" />
     <supports-screens
         android:smallScreens="true"

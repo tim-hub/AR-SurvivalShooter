@@ -208,6 +208,12 @@
             This property is used for configuring the size of video background mesh.
             </summary>
         </member>
+        <member name="P:Vuforia.BackgroundPlaneAbstractBehaviour.BackgroundOffset">
+            <summary>
+            This vector is used to shift the background by a known offset in world coordinates.
+            Used for integration with Unity VR support.
+            </summary>
+        </member>
         <member name="P:Vuforia.BackgroundPlaneAbstractBehaviour.DefaultRotationTowardsCamera">
             <summary>
             The default rotation that is applied to the Background Plane to align it towards the camera, before applying any
@@ -332,6 +338,41 @@
         <member name="M:Vuforia.IOSCamRecoveringHelper.SetSuccessfullyRecovered">
             <summary>
             Called once a new Vuforia frame was processed to reset the logic.
+            </summary>
+        </member>
+        <member name="T:Vuforia.NullHideExcessAreaClipping">
+            <summary>
+            Null implementation to clip access areas
+            </summary>
+        </member>
+        <member name="M:Vuforia.StencilHideExcessAreaClipping.CreateQuad(UnityEngine.GameObject,System.String,UnityEngine.Vector3,UnityEngine.Quaternion,UnityEngine.Vector3,System.Int32)">
+            <summary>
+            This function is used to create a named plane for a given parent with specified transformation and layer id
+            </summary>
+        </member>
+        <member name="M:Vuforia.StencilHideExcessAreaClipping.SetPlanesRenderingActive(System.Boolean)">
+            <summary>
+            This function is used to enable or disable rendering of planes
+            </summary>
+        </member>
+        <member name="M:Vuforia.StencilHideExcessAreaClipping.IsPlanesRenderingActive">
+            <summary>
+            This function return the status of plane activation
+            </summary>
+        </member>
+        <member name="M:Vuforia.LegacyHideExcessAreaClipping.CreateQuad(UnityEngine.GameObject,System.String,UnityEngine.Vector3,UnityEngine.Quaternion,UnityEngine.Vector3,System.Int32)">
+            <summary>
+            This function is used to create a named plane for a given parent with specified transformation and layer id
+            </summary>
+        </member>
+        <member name="M:Vuforia.LegacyHideExcessAreaClipping.SetPlanesRenderingActive(System.Boolean)">
+            <summary>
+            This function is used to enable or disable rendering of planes
+            </summary>
+        </member>
+        <member name="M:Vuforia.LegacyHideExcessAreaClipping.IsPlanesRenderingActive">
+            <summary>
+            This function return the status of plane activation
             </summary>
         </member>
         <member name="T:Vuforia.ICameraConfiguration">
@@ -1049,19 +1090,9 @@
             This is the shader used for matte planes
             </summary>
         </member>
-        <member name="F:Vuforia.HideExcessAreaAbstractBehaviour.disableMattes">
+        <member name="F:Vuforia.HideExcessAreaAbstractBehaviour.clippingMode">
             <summary>
-            This property is used to enable or disable mattes in the scene
-            </summary>
-        </member>
-        <member name="M:Vuforia.HideExcessAreaAbstractBehaviour.CreateQuad(UnityEngine.GameObject,System.String,UnityEngine.Vector3,UnityEngine.Quaternion,UnityEngine.Vector3,System.Int32)">
-            <summary>
-            This function is used to create a named plane for a given parent with specified transformation and layer id
-            </summary>
-        </member>
-        <member name="M:Vuforia.HideExcessAreaAbstractBehaviour.SetPlanesActive(System.Boolean)">
-            <summary>
-            This function is used to enable or disable planes
+            This property is used to allow selecting different clipping modes
             </summary>
         </member>
         <member name="M:Vuforia.HideExcessAreaAbstractBehaviour.SetPlanesRenderingActive(System.Boolean)">
@@ -1070,16 +1101,22 @@
             This function is used to enable or disable rendering of planes
             </summary>
         </member>
-        <member name="M:Vuforia.HideExcessAreaAbstractBehaviour.isPlanesRenderingActive">
+        <member name="M:Vuforia.HideExcessAreaAbstractBehaviour.IsPlanesRenderingActive">
             <summary>
             This function return the status of plane activation
             </summary>
         </member>
-        <member name="M:Vuforia.HideExcessAreaAbstractBehaviour.ForceUpdateHideBehaviours">
+        <member name="P:Vuforia.HideExcessAreaAbstractBehaviour.PlaneOffset">
             <summary>
-            This function can be used if you dynamically add/remove hide behaviour from the scene
-            it will internally update known list of hide behaviours for view clipping.
+            This vector is used to shift the planes by a known offset in world coordinates.
+            Used for integration with Unity VR support.
             </summary>
+        </member>
+        <member name="F:Vuforia.HideExcessAreaAbstractBehaviour.CLIPPING_MODE.PLANES">
+            draws a full screen quad at the near plane of each camera that clips area around the video background using a stencil mask
+        </member>
+        <member name="F:Vuforia.HideExcessAreaAbstractBehaviour.CLIPPING_MODE.NONE">
+            draws planes only around camera frustum. Useful for devices that don't support stencil shaders (only Tegra 3, i.e. HTC One X)
         </member>
         <member name="T:Vuforia.ObjectTargetImpl">
             <summary>
